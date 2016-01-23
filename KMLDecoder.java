@@ -49,7 +49,7 @@ public class KMLDecoder {
             try {
                 port = Integer.parseInt(args[0]);
             } catch (NumberFormatException nfe) {
-                System.err.format("%s: illegal number \"%s\"%n",
+                System.err.format("%s: invalid number \"%s\"%n",
                     MYNAME, args[0]);
                 System.exit(2);
             }
@@ -85,7 +85,7 @@ public class KMLDecoder {
             /* Determine channel */
             String chan = nmsg.getRadioChannelCode();
             if (!msgbuf.containsKey(chan)) {
-                errmsg("Illegal channel code " + chan);
+                errmsg("Invalid channel code " + chan);
                 continue;
             }
 
@@ -94,14 +94,14 @@ public class KMLDecoder {
             AISMessage amsg = null;
             try {
                 if (nfrag < 0) {
-                    errmsg("Illegal fragment count " + Integer.toString(nfrag));
+                    errmsg("Invalid fragment count " + Integer.toString(nfrag));
                 } else if (nfrag == 1) {
                     amsg = AISMessage.create(nmsg);
                     clearbuf(chan);
                 } else {
                     int fragno = nmsg.getFragmentNumber();
                     if (fragno < 0 || fragno > nfrag) {
-                        errmsg("Illegal fragment number " + Integer.toString(fragno));
+                        errmsg("Invalid fragment number " + Integer.toString(fragno));
                         clearbuf(chan);
                         continue;
                     }
@@ -109,7 +109,7 @@ public class KMLDecoder {
                     int expected = thisbuf.size() + 1;
                     if (fragno != expected) {
                         errmsg("Expecting fragment " + Integer.toString(expected)
-                            + " got " + Integer.toString(fragno) + "!");
+                            + ", got " + Integer.toString(fragno) + "!");
                         clearbuf(chan);
                         continue;
                     }
@@ -134,8 +134,7 @@ public class KMLDecoder {
 
             /* Every message starts with a time stamp, message type, and MMSI */
             String msgtype = amsg.getClass().getSimpleName();
-            Formatter fmt = new Formatter();
-            String mmsi = fmt.format("%09d", amsg.getSourceMmsi().getMMSI()).toString();
+            String mmsi = PlottableShip.formatMMSI(amsg.getSourceMmsi().getMMSI());
             System.out.format("%s %s %s%n", now, msgtype, mmsi);
 
             /* Most of the ship updating happens here. Note that we also can

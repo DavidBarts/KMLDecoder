@@ -15,7 +15,7 @@ import dk.tbsalling.aismessages.ais.messages.*;
  */
 public class PlottableShips {
     /* purge a ship after no reports for this many milliseconds */
-    private static final long MAXLIFE = 30 * 60 * 1000;
+    private static final long MAXLIFE = 10 * 60 * 1000;
 
     /* don't run purges more often than this */
     private static final long MINPURGE = 30 * 1000;
