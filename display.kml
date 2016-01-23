@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://earth.google.com/kml/2.0">
+  <Document>
+    <visibility>1</visibility>
+    <NetworkLink>
+      <name>KML AIS Viewer</name>
+      <flyToView>0</flyToView>
+      <Url>
+        <href>http://127.0.0.1:8080</href>
+        <refreshMode>onInterval</refreshMode>
+        <refreshInterval>10</refreshInterval>
+        <viewRefreshMode>never</viewRefreshMode>
+      </Url>
+      <refreshVisibility>1</refreshVisibility>
+    </NetworkLink>
+  </Document>
+</kml>
